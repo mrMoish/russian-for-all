@@ -1,0 +1,80 @@
+---
+import { type Locale } from '../i18n/languages';
+import { CONTACTS, BRAND_NAME } from '../config/contacts';
+
+interface Props {
+  locale: Locale;
+  canonicalURL: URL;
+  pageType?: 'home' | 'article' | 'page';
+  breadcrumbs?: Array<{ name: string; url: string }>;
+}
+
+const { locale, canonicalURL, pageType = 'page', breadcrumbs } = Astro.props;
+
+// 1. Person / Organization Schema
+const personOrganizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": CONTACTS.ownerName,
+  "jobTitle": "Native Russian Conversation Partner & Tutor",
+  "url": "https://mrmoish.com",
+  "sameAs": [
+    CONTACTS.instagram,
+    CONTACTS.telegram,
+    CONTACTS.whatsapp
+  ],
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Buenos Aires",
+    "addressCountry": "Argentina"
+  }
+};
+
+// 2. WebSite Schema
+const webSiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": BRAND_NAME,
+  "url": "https://mrmoish.com",
+  "inLanguage": locale
+};
+
+// 3. Service Schema
+// TODO(owner): Add real pricing info if offering package rates; currently omitted per guidelines
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Russian Conversation Practice with a Native Speaker",
+  "provider": {
+    "@type": "Person",
+    "name": CONTACTS.ownerName
+  },
+  "areaServed": {
+    "@type": "Place",
+    "name": "Worldwide"
+  },
+  "availableLanguage": [
+    "en", "zh-Hans", "es", "tr", "ar", "ro", "he", "ru"
+  ],
+  "description": "Online 1-on-1 Russian conversation sessions focused on spoken confidence, pronunciation feedback, and natural dialogue."
+};
+
+// 4. BreadcrumbList Schema (if applicable)
+const breadcrumbSchema = breadcrumbs && breadcrumbs.length > 0 ? {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": breadcrumbs.map((crumb, idx) => ({
+    "@type": "ListItem",
+    "position": idx + 1,
+    "name": crumb.name,
+    "item": crumb.url
+  }))
+} : null;
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(personOrganizationSchema)} />
+<script type="application/ld+json" set:html={JSON.stringify(webSiteSchema)} />
+<script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+{breadcrumbSchema && (
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+)}

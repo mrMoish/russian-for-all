@@ -1,0 +1,206 @@
+---
+import { type Locale } from '../i18n/languages';
+
+interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+
+const faqsByLocale: Record<Locale, FAQItem[]> = {
+  en: [
+    {
+      question: "Will conversation practice replace a full grammar textbook or structured course?",
+      answer: "No, conversation practice does not completely replace formal grammar study or guarantee effortless fluency. It is designed as an active spoken complement where you apply what you learn, overcome fear of speaking, and build spontaneous sentence generation with real-time feedback."
+    },
+    {
+      question: "What happens during the free 20-minute trial session?",
+      answer: "The trial is completely free and low-pressure. We meet via Telegram, WhatsApp, or Zoom for a relaxed chat to assess your spoken Russian comfort level, discuss your goals, and see if our conversation style is a good fit."
+    },
+    {
+      question: "What Russian levels do you work with?",
+      answer: "We welcome all levels from absolute beginners (A0) learning their first sounds and phrases up to advanced learners (C1) polishing intonation and conversational slang."
+    },
+    {
+      question: "How do we schedule sessions across different time zones?",
+      answer: "Vasily is based in Buenos Aires (UTC-3), which conveniently accommodates time slots across North and South America, Europe, the Middle East, and Asia. Flexible slots are available throughout weekdays and weekends."
+    },
+    {
+      question: "Which video and messaging platforms are supported?",
+      answer: "Sessions typically take place over Telegram, WhatsApp, or Zoom video/audio calls depending on your preference and internet connection."
+    }
+  ],
+  zh: [
+    {
+      question: "口语练习可以完全替代语法教材或系统课程吗？",
+      answer: "不能。口语练习并不代替系统的语法学习，也不承诺“30天快速流利”。它是对教材与软件的最佳实战补充，帮助您把死记硬背的规则转化为流利的肌肉记忆和脱口而出的表达自信。"
+    },
+    {
+      question: "20 分钟免费体验对话包含哪些内容？",
+      answer: "体验对话完全免费且轻松无压力。我们通过 Telegram、WhatsApp 或 Zoom 进行在线语音或视频交流，评估您目前的口语水平，探讨您的学习目标，并让您体验真实的对话模式。"
+    },
+    {
+      question: "支持哪些俄语水平的学习者？",
+      answer: "涵盖从零基础（A0，从字母和第一句俄语开始）到高级水平（C1，讨论复杂话题与俚语润色）的所有学习者。"
+    },
+    {
+      question: "跨时区如何预约上课时间？",
+      answer: "Vasily 常驻布宜诺斯艾利斯 (UTC-3)，时间非常灵活，可轻松对接亚洲晚间、欧洲白天及美洲时间。周末亦提供灵活预约时段。"
+    },
+    {
+      question: "使用哪些软件进行通话？",
+      answer: "根据您的习惯，支持 Telegram、WhatsApp 或 Zoom 进行视频或语音通话。"
+    }
+  ],
+  es: [
+    {
+      question: "¿La práctica de conversación reemplaza un curso estructurado o libro de texto?",
+      answer: "No, la conversación no reemplaza el estudio formal de la gramática ni garantiza fluidez milagrosa. Es el complemento activo ideal para activar lo aprendido, perder el miedo a hablar y pronunciar correctamente con retroalimentación nativa inmediata."
+    },
+    {
+      question: "¿Qué ocurre durante la sesión de prueba gratuita de 20 minutos?",
+      answer: "Es una llamada relajada y 100% gratuita por Telegram, WhatsApp o Zoom. Charlamos brevemente para conocer tu nivel actual de ruso, tus objetivos y ver cómo se siente la dinámica de conversación."
+    },
+    {
+      question: "¿Para qué niveles de ruso son las clases?",
+      answer: "Desde principiantes absolutos (A0) aprendiendo sus primeras palabras hasta niveles avanzados (C1) perfeccionando entonación y lenguaje coloquial."
+    },
+    {
+      question: "¿Cómo coordinamos los horarios en diferentes países?",
+      answer: "Vasily vive en Buenos Aires (UTC-3), lo que permite coordinar cómodamente con España, Latinoamérica, Estados Unidos y otros países."
+    },
+    {
+      question: "¿Qué aplicaciones se usan para las sesiones?",
+      answer: "Realizamos las llamadas a través de Telegram, WhatsApp o Zoom, según tu preferencia."
+    }
+  ],
+  tr: [
+    {
+      question: "Konuşma pratiği bir dilbilgisi kitabının veya kursun yerini tamamen tutar mı?",
+      answer: "Hayır, konuşma pratiği dilbilgisi çalışmasının yerini tamamen almaz veya mucizevi bir akıcılık vaat etmez. Öğrendiklerinizi pratiğe dökmek, konuşma korkusunu yenmek ve anında düzeltmelerle özgüven kazanmak için en etkili tamamlayıcı yöntemdir."
+    },
+    {
+      question: "20 dakikalık ücretsiz deneme görüşmesinde ne yapılır?",
+      answer: "Tamamen ücretsiz ve baskısız bir görüşmedir. Telegram, WhatsApp veya Zoom üzerinden bağlanarak seviyenizi belirler ve hedeflerinizi konuşuruz."
+    },
+    {
+      question: "Hangi seviyedeki öğrenciler katılabilir?",
+      answer: "Sıfır seviyesinden (A0) ileri seviyeye (C1) kadar her seviyedeki öğrenciyle çalışıyoruz."
+    },
+    {
+      question: "Farklı saat dilimleri için ders nasıl ayarlanır?",
+      answer: "Vasily Buenos Aires'tedir (UTC-3). Türkiye saatiyle öğleden sonra ve akşam saatlerine mükemmel şekilde uyum sağlayacak esnek saatler mevcuttur."
+    },
+    {
+      question: "Hangi platformlar üzerinden görüşülüyor?",
+      answer: "Tercihinize göre Telegram, WhatsApp veya Zoom üzerinden sesli ya da görüntülü görüşme yapıyoruz."
+    }
+  ],
+  ar: [
+    {
+      question: "هل ممارسة المحادثة تغني عن كتب القواعد أو الدورات الأكاديمية؟",
+      answer: "كلا، ممارسة المحادثة لا تلغي الحاجة لدراسة القواعد ولا تعد بطلاقة سحرية، ولكنها التطبيق العملي الأهم لتحويل المعرفة النظرية إلى حديث حقيقي وكسر حاجز الخوف من التحدث."
+    },
+    {
+      question: "ماذا يحدث في الجلسة التجريبية المجانية (20 دقيقة)؟",
+      answer: "لقاء مريح ومجاني 100% عبر تليجرام أو واتساب أو زوم لتقييم مستواك الشفهي والتعرف على أهدافك."
+    },
+    {
+      question: "ما هي المستويات التي تستقبلونها؟",
+      answer: "نرحب بالجميع من المبتدئين تماماً (A0) وحتى المستويات المتقدمة (C1)."
+    },
+    {
+      question: "كيف يتم تنظيم المواعيد بحسب الفارق الزمني؟",
+      answer: "فاسيلي مقيم في بوينس آيرس (UTC-3)، وتتوفر مواعيد مرونة تتناسب مع منطقة الشرق الأوسط وشمال إفريقيا."
+    },
+    {
+      question: "ما هي المنصات المستخدمة للجلسات؟",
+      answer: "يمكن إجراء الجلسات عبر تليجرام، أو واتساب، أو زوم."
+    }
+  ],
+  ro: [
+    {
+      question: "Practica conversației înlocuiește un manual de gramatică sau un curs formal?",
+      answer: "Nu, conversația nu înlocuiește studiul gramatical și nu garantează fluență peste noapte. Este însă completarea esențială care te ajută să aplici ceea ce înveți și să vorbești fără blocaje emoționale."
+    },
+    {
+      question: "Ce se întâmplă în cadrul sesiunii gratuite de 20 de minute?",
+      answer: "O discuție relaxată și fără obligații pe Telegram, WhatsApp sau Zoom pentru a-ți evalua nivelul actual și obiectivele."
+    },
+    {
+      question: "Ce niveluri de limbă rusă sunt acceptate?",
+      answer: "Toate nivelurile, de la începători absoluți (A0) până la nivel avansat (C1)."
+    },
+    {
+      question: "Cum stabilim orele având în vedere diferența de fus orar?",
+      answer: "Vasily este stabilit în Buenos Aires (UTC-3), oferind opțiuni convenabile pentru România și Europa."
+    },
+    {
+      question: "Ce aplicații folosim pentru apeluri?",
+      answer: "Telegram, WhatsApp sau Zoom, în funcție de preferința ta."
+    }
+  ],
+  he: [
+    {
+      question: "האם תרגול שיחה מחליף ספר דקדוק או קורס מובנה?",
+      answer: "לא, תרגול שיחה אינו מחליף לימוד דקדוק יסודי ואינו מבטיח שטף פלאי. זהו הכלי המשלים החשוב ביותר שמאפשר ליישם את מה שלמדתם, להתגבר על מחסום הדיבור ולדבר באופן טבעי."
+    },
+    {
+      question: "מה קורה בשיחת הניסיון בחינם (20 דק')?",
+      answer: "מפגש נינוח ונטול התחייבות ב-Telegram, WhatsApp או Zoom להערכת רמת הרוסית שלכם ותיאום ציפיות."
+    },
+    {
+      question: "לאילו רמות מתאימים השיעורים?",
+      answer: "ממתחילים מוחלטים (A0) ועד לרמות מתקדמות (C1)."
+    },
+    {
+      question: "איך מתאמים שעות לפי הבדלי השעות מול ישראל?",
+      answer: "וסילי גר בבואנוס איירס (UTC-3), וישנם חלונות זמן נוחים במיוחד בשעות אחה\"צ והערב לפי שעון ישראל."
+    },
+    {
+      question: "באילו אפליקציות מתקיימות השיחות?",
+      answer: "ב-Telegram, WhatsApp או Zoom לפי בחירתכם."
+    }
+  ]
+};
+
+const faqs = faqsByLocale[locale] || faqsByLocale.en;
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map((f) => ({
+    "@type": "Question",
+    "name": f.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": f.answer
+    }
+  }))
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+<div class="space-y-4">
+  {faqs.map((item) => (
+    <details class="group bg-white dark:bg-slate-800 rounded-xl p-5 shadow-sm border border-slate-200 dark:border-slate-700 transition">
+      <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white cursor-pointer list-none focus:outline-none">
+        <span class="text-base sm:text-lg">{item.question}</span>
+        <span class="transition group-open:rotate-180 ms-4 shrink-0 text-brand-600 dark:text-brand-400 font-bold">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </span>
+      </summary>
+      <div class="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed pt-3 border-t border-slate-100 dark:border-slate-700/60">
+        <p>{item.answer}</p>
+      </div>
+    </details>
+  ))}
+</div>

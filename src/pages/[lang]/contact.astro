@@ -1,0 +1,52 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ContactButtons from '../../components/ContactButtons.astro';
+import TimeZoneTable from '../../components/TimeZoneTable.astro';
+import { getTranslation } from '../../i18n/utils';
+import type { Locale } from '../../i18n/languages';
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: 'en' } },
+    { params: { lang: 'zh' } },
+    { params: { lang: 'es' } },
+    { params: { lang: 'tr' } },
+    { params: { lang: 'ar' } },
+    { params: { lang: 'ro' } },
+    { params: { lang: 'he' } },
+  ];
+}
+
+const { lang } = Astro.params;
+const locale = lang as Locale;
+const t = getTranslation(locale);
+---
+
+<BaseLayout
+  locale={locale}
+  title={t.seo.contactTitle}
+  description={t.seo.contactDesc}
+>
+  <section class="py-16 sm:py-20 bg-slate-50 dark:bg-slate-900">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <header class="text-center mb-12">
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white leading-tight mb-4">
+          Contact Vasily Moish & Book Free Trial
+        </h1>
+        <p class="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
+          Send a quick message via Telegram, WhatsApp, or Instagram to schedule your 20-minute trial conversation.
+        </p>
+      </header>
+
+      <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 sm:p-10 shadow-md border border-slate-200 dark:border-slate-700 mb-12">
+        <ContactButtons locale={locale} showQRCodes={true} />
+      </div>
+
+      <div>
+        <TimeZoneTable locale={locale} />
+      </div>
+
+    </div>
+  </section>
+</BaseLayout>

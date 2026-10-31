@@ -1,0 +1,110 @@
+---
+import { LANGUAGES, type Locale } from '../i18n/languages';
+import { getTranslation } from '../i18n/utils';
+import { CONTACTS, BRAND_NAME } from '../config/contacts';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getTranslation(locale);
+const currentPath = Astro.url.pathname;
+
+const navItems = [
+  { href: `/${locale}/`, label: t.nav.home },
+  { href: `/${locale}/why-speaking-works/`, label: t.nav.whySpeaking },
+  { href: `/${locale}/how-lessons-work/`, label: t.nav.format },
+  { href: `/${locale}/learn-russian/`, label: t.nav.guideHub },
+  { href: `/${locale}/about/`, label: t.nav.about },
+  { href: `/${locale}/contact/`, label: t.nav.contact },
+];
+
+const pathnameWithoutLang = currentPath.replace(/^\/(en|zh|es|tr|ar|ro|he)/, '') || '/';
+---
+
+<header class="sticky top-0 z-40 bg-white/90 dark:bg-slate-900/90 backdrop-blur border-b border-slate-200 dark:border-slate-800">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+
+      <!-- Brand Logo -->
+      <a href={`/${locale}/`} class="flex items-center gap-2 text-xl font-bold text-brand-700 dark:text-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500 rounded-lg p-1">
+        <span class="inline-flex items-center justify-center w-8 h-8 rounded-md bg-brand-600 text-white font-serif font-extrabold text-lg">М</span>
+        <span>{BRAND_NAME}</span>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex items-center gap-6" aria-label="Main Navigation">
+        {navItems.map((item) => (
+          <a
+            href={item.href}
+            class:list={[
+              "text-sm font-medium transition-colors hover:text-brand-600 dark:hover:text-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-500 rounded-md px-2 py-1",
+              currentPath === item.href || currentPath === item.href.slice(0, -1)
+                ? "text-brand-600 dark:text-brand-400 font-semibold"
+                : "text-slate-600 dark:text-slate-300"
+            ]}
+          >
+            {item.label}
+          </a>
+        ))}
+      </nav>
+
+      <!-- Right controls: Header CTA & Language Switcher Dropdown/Links -->
+      <div class="flex items-center gap-3">
+        <!-- Direct CTA -->
+        <a
+          href={CONTACTS.telegram}
+          target="_blank"
+          rel="noopener"
+          data-contact="telegram-header"
+          class="hidden sm:inline-flex items-center justify-center px-4 py-2 text-sm font-semibold text-white bg-brand-600 hover:bg-brand-700 active:bg-brand-800 rounded-lg transition shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+        >
+          {t.header.bookTrial}
+        </a>
+
+        <!-- Script-Native Language Switcher -->
+        <div class="relative group inline-block text-left">
+          <button
+            type="button"
+            aria-label="Select Language"
+            aria-haspopup="true"
+            aria-expanded="false"
+            class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs sm:text-sm font-medium border border-slate-300 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-brand-500"
+          >
+            <span>{LANGUAGES[locale].flag}</span>
+            <span class="font-semibold">{LANGUAGES[locale].nativeName}</span>
+            <svg class="w-4 h-4 ms-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+
+          <!-- Dropdown List -->
+          <div class="hidden group-hover:block group-focus-within:block absolute end-0 mt-1 w-44 rounded-md shadow-lg bg-white dark:bg-slate-800 ring-1 ring-black ring-opacity-5 z-50 border border-slate-200 dark:border-slate-700">
+            <div class="py-1" role="menu" aria-orientation="vertical">
+              {Object.values(LANGUAGES).map((lang) => (
+                <a
+                  href={`/${lang.code}${pathnameWithoutLang}`}
+                  class:list={[
+                    "flex items-center justify-between px-4 py-2 text-sm hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors",
+                    lang.code === locale
+                      ? "font-bold text-brand-600 dark:text-brand-400 bg-slate-50 dark:bg-slate-800"
+                      : "text-slate-700 dark:text-slate-200"
+                  ]}
+                  role="menuitem"
+                >
+                  <span class="flex items-center gap-2">
+                    <span>{lang.flag}</span>
+                    <span>{lang.nativeName}</span>
+                  </span>
+                  <span class="text-xs text-slate-400 uppercase">{lang.code}</span>
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</header>

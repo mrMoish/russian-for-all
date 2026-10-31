@@ -1,0 +1,97 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TimeZoneTable from '../../components/TimeZoneTable.astro';
+import ContactButtons from '../../components/ContactButtons.astro';
+import { getTranslation } from '../../i18n/utils';
+import type { Locale } from '../../i18n/languages';
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: 'en' } },
+    { params: { lang: 'zh' } },
+    { params: { lang: 'es' } },
+    { params: { lang: 'tr' } },
+    { params: { lang: 'ar' } },
+    { params: { lang: 'ro' } },
+    { params: { lang: 'he' } },
+  ];
+}
+
+const { lang } = Astro.params;
+const locale = lang as Locale;
+const t = getTranslation(locale);
+---
+
+<BaseLayout
+  locale={locale}
+  title={t.seo.formatTitle}
+  description={t.seo.formatDesc}
+>
+  <section class="py-16 sm:py-20 bg-slate-50 dark:bg-slate-900">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <header class="text-center mb-12">
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white leading-tight mb-4">
+          How Lessons Work & Session Format
+        </h1>
+        <p class="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
+          Flexible, 1-on-1 online conversation practice designed entirely around your goals and schedule.
+        </p>
+      </header>
+
+      <!-- Answer-First Summary -->
+      <div class="mb-12 p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700">
+        <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-2">At a Glance: Lesson Format</h2>
+        <ul class="space-y-2 text-slate-700 dark:text-slate-300 text-sm sm:text-base">
+          <li><strong>Format:</strong> 1-on-1 online video or audio calls via Telegram, WhatsApp, or Zoom.</li>
+          <li><strong>Duration:</strong> 20-minute free trial session; 45 or 60-minute regular conversation sessions.</li>
+          <li><strong>Schedule:</strong> Flexible booking across time zones (Vasily is based in Buenos Aires, UTC-3).</li>
+          <li><strong>Focus:</strong> Active spoken practice tailored to your level (A0 to C1).</li>
+        </ul>
+      </div>
+
+      <!-- Step-by-Step Lesson Structure -->
+      <div class="space-y-8 mb-16">
+        <h2 class="text-2xl font-bold text-slate-900 dark:text-white text-center mb-8">
+          The 3 Stages of Your Session
+        </h2>
+
+        <div class="p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700">
+          <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-2">1. Warm-Up & Goal Alignment (5 mins)</h3>
+          <p class="text-slate-600 dark:text-slate-300 text-sm sm:text-base">
+            We start with light informal chat to get your mind into "Russian mode". We quickly select today's focus topic (e.g., travel, hobbies, recent news, or specific grammar in context).
+          </p>
+        </div>
+
+        <div class="p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700">
+          <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-2">2. Guided Conversation & Gentle Feedback (35–45 mins)</h3>
+          <p class="text-slate-600 dark:text-slate-300 text-sm sm:text-base">
+            You do 80% of the talking. Vasily asks open-ended questions, guides the flow, and notes down pronunciation, stress, or case errors without interrupting your train of thought unnecessarily.
+          </p>
+        </div>
+
+        <div class="p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700">
+          <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-2">3. Actionable Wrap-Up & Notes (5–10 mins)</h3>
+          <p class="text-slate-600 dark:text-slate-300 text-sm sm:text-base">
+            At the end of the session, we review new vocabulary used during our conversation and highlight key corrections so you have clear takeaways to practice before next time.
+          </p>
+        </div>
+      </div>
+
+      <!-- Time Zone Scheduling Table -->
+      <div class="mb-16">
+        <TimeZoneTable locale={locale} />
+      </div>
+
+      <!-- Free Trial CTA -->
+      <div class="p-8 bg-brand-600 text-white rounded-2xl text-center shadow-lg">
+        <h2 class="text-2xl font-bold mb-3">Book Your Free 20-Minute Trial</h2>
+        <p class="text-brand-100 max-w-xl mx-auto mb-6 text-sm sm:text-base">
+          No credit card required. Test your current Russian level, discuss your goals, and see how live conversation practice works for you.
+        </p>
+        <ContactButtons locale={locale} showQRCodes={false} />
+      </div>
+
+    </div>
+  </section>
+</BaseLayout>

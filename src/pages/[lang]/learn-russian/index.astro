@@ -1,0 +1,86 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ContactButtons from '../../../components/ContactButtons.astro';
+import { getTranslation } from '../../../i18n/utils';
+import { GUIDE_ARTICLES, type GuideArticle } from '../../../data/guides';
+import type { Locale } from '../../../i18n/languages';
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: 'en' } },
+    { params: { lang: 'zh' } },
+    { params: { lang: 'es' } },
+    { params: { lang: 'tr' } },
+    { params: { lang: 'ar' } },
+    { params: { lang: 'ro' } },
+    { params: { lang: 'he' } },
+  ];
+}
+
+const { lang } = Astro.params;
+const locale = lang as Locale;
+const t = getTranslation(locale);
+const articles: GuideArticle[] = GUIDE_ARTICLES[locale] || GUIDE_ARTICLES.en;
+---
+
+<BaseLayout
+  locale={locale}
+  title={t.seo.guideTitle}
+  description={t.seo.guideDesc}
+>
+  <section class="py-16 sm:py-20 bg-slate-50 dark:bg-slate-900">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <header class="text-center mb-12">
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white leading-tight mb-4">
+          Learn Russian: Guide & Search FAQ Hub
+        </h1>
+        <p class="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
+          Direct, answer-first guides to top questions about learning Russian, mastering the Cyrillic alphabet, and speaking fluently.
+        </p>
+      </header>
+
+      <!-- Articles Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+        {articles.map((article) => (
+          <article class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-200/80 dark:border-slate-700 flex flex-col justify-between hover:shadow-md transition">
+            <div>
+              <div class="flex items-center gap-2 text-xs text-slate-400 dark:text-slate-500 mb-3">
+                <span>Last updated: {article.dateModified}</span>
+                <span>•</span>
+                <span>By Vasily Moish</span>
+              </div>
+              <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-3 hover:text-brand-600 dark:hover:text-brand-400 transition">
+                <a href={`/${locale}/learn-russian/${article.slug}/`}>
+                  {article.title}
+                </a>
+              </h2>
+              <p class="text-xs sm:text-sm font-semibold text-brand-700 dark:text-brand-400 bg-brand-50/80 dark:bg-slate-900/50 p-3 rounded-lg mb-4 border border-brand-100 dark:border-slate-800">
+                💡 <strong>Direct Answer:</strong> {article.answerFirst}
+              </p>
+              <p class="text-sm text-slate-600 dark:text-slate-300 line-clamp-3">
+                {article.description}
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-slate-100 dark:border-slate-700/60">
+              <a
+                href={`/${locale}/learn-russian/${article.slug}/`}
+                class="inline-flex items-center text-sm font-bold text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300"
+              >
+                Read Full Guide &rarr;
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <!-- Footer CTA -->
+      <div class="p-8 bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 text-center shadow-sm">
+        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Have specific questions about learning Russian?</h3>
+        <p class="text-sm text-slate-600 dark:text-slate-300 mb-6">Ask Vasily directly or book a free 20-minute trial conversation.</p>
+        <ContactButtons locale={locale} showQRCodes={false} />
+      </div>
+
+    </div>
+  </section>
+</BaseLayout>

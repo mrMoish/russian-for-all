@@ -1,0 +1,42 @@
+---
+import { type Locale } from '../i18n/languages';
+import { getTranslation } from '../i18n/utils';
+import { CONTACTS } from '../config/contacts';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getTranslation(locale);
+---
+
+<div class="md:hidden fixed bottom-0 inset-x-0 z-50 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-t border-slate-200 dark:border-slate-800 p-2 shadow-lg">
+  <div class="grid grid-cols-2 gap-2 max-w-md mx-auto">
+    <a
+      href={CONTACTS.telegram}
+      target="_blank"
+      rel="noopener"
+      data-contact="telegram-sticky"
+      class="flex items-center justify-center gap-2 px-3 py-2.5 bg-sky-500 hover:bg-sky-600 active:bg-sky-700 text-white rounded-lg text-xs font-semibold shadow-sm transition"
+    >
+      <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+        <path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.56 8.16l-2.02 9.51c-.15.68-.55.84-1.12.52l-3.1-2.28-1.5 1.44c-.17.17-.31.31-.63.31l.22-3.17 5.77-5.21c.25-.22-.05-.35-.39-.12l-7.13 4.49-3.08-.96c-.67-.21-.68-.67.14-.99l12.04-4.64c.56-.21 1.05.13.8 1.1z"/>
+      </svg>
+      <span>{t.contacts.telegram}</span>
+    </a>
+
+    <a
+      href={CONTACTS.whatsapp}
+      target="_blank"
+      rel="noopener"
+      data-contact="whatsapp-sticky"
+      class="flex items-center justify-center gap-2 px-3 py-2.5 bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white rounded-lg text-xs font-semibold shadow-sm transition"
+    >
+      <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+        <path d="M12.012 2c-5.506 0-9.989 4.478-9.99 9.984 0 1.762.459 3.481 1.332 4.992l-1.415 5.17 5.291-1.387c1.455.793 3.093 1.21 4.779 1.211h.003c5.505 0 9.986-4.478 9.988-9.985 0-2.668-1.038-5.178-2.924-7.062a9.92 9.92 0 00-7.064-2.923z"/>
+      </svg>
+      <span>{t.contacts.whatsapp}</span>
+    </a>
+  </div>
+</div>

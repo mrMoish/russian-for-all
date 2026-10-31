@@ -1,0 +1,104 @@
+---
+import { type Locale } from '../i18n/languages';
+import { getTranslation } from '../i18n/utils';
+import { CONTACTS } from '../config/contacts';
+
+interface Props {
+  locale: Locale;
+  showQRCodes?: boolean;
+}
+
+const { locale, showQRCodes = true } = Astro.props;
+const t = getTranslation(locale);
+---
+
+<div class="space-y-8">
+  <!-- Primary Contact Buttons Grid -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+
+    <!-- Telegram -->
+    <a
+      href={CONTACTS.telegram}
+      target="_blank"
+      rel="noopener"
+      data-contact="telegram"
+      class="flex items-center gap-3 p-4 bg-sky-500 hover:bg-sky-600 active:bg-sky-700 text-white rounded-xl shadow-md transition transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-sky-400"
+    >
+      <svg class="w-7 h-7 fill-current shrink-0" viewBox="0 0 24 24">
+        <path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.56 8.16l-2.02 9.51c-.15.68-.55.84-1.12.52l-3.1-2.28-1.5 1.44c-.17.17-.31.31-.63.31l.22-3.17 5.77-5.21c.25-.22-.05-.35-.39-.12l-7.13 4.49-3.08-.96c-.67-.21-.68-.67.14-.99l12.04-4.64c.56-.21 1.05.13.8 1.1z"/>
+      </svg>
+      <div>
+        <div class="font-bold text-base">{t.contacts.telegram}</div>
+        <div class="text-xs text-sky-100">@mr_Moish</div>
+      </div>
+    </a>
+
+    <!-- WhatsApp Vanity Primary -->
+    <a
+      href={CONTACTS.whatsapp}
+      target="_blank"
+      rel="noopener"
+      data-contact="whatsapp-vanity"
+      class="flex items-center gap-3 p-4 bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white rounded-xl shadow-md transition transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-emerald-400"
+    >
+      <svg class="w-7 h-7 fill-current shrink-0" viewBox="0 0 24 24">
+        <path d="M12.012 2c-5.506 0-9.989 4.478-9.99 9.984 0 1.762.459 3.481 1.332 4.992l-1.415 5.17 5.291-1.387c1.455.793 3.093 1.21 4.779 1.211h.003c5.505 0 9.986-4.478 9.988-9.985 0-2.668-1.038-5.178-2.924-7.062a9.92 9.92 0 00-7.064-2.923z"/>
+      </svg>
+      <div>
+        <div class="font-bold text-base">{t.contacts.whatsapp}</div>
+        <div class="text-xs text-emerald-100">{CONTACTS.phoneFormatted}</div>
+      </div>
+    </a>
+
+    <!-- Instagram -->
+    <a
+      href={CONTACTS.instagram}
+      target="_blank"
+      rel="noopener"
+      data-contact="instagram"
+      class="flex items-center gap-3 p-4 bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 hover:opacity-95 text-white rounded-xl shadow-md transition transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-pink-400"
+    >
+      <svg class="w-7 h-7 fill-current shrink-0" viewBox="0 0 24 24">
+        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+      </svg>
+      <div>
+        <div class="font-bold text-base">{t.contacts.instagram}</div>
+        <div class="text-xs text-pink-100">@mr_moish</div>
+      </div>
+    </a>
+  </div>
+
+  <!-- Numeric WhatsApp Fallback link -->
+  <div class="text-center text-xs text-slate-500 dark:text-slate-400">
+    <span>{t.contacts.directCall}: </span>
+    <!-- TODO(owner): Confirm whether vanity link or numeric link works best for your WhatsApp business account -->
+    <a
+      href={CONTACTS.whatsappNumeric}
+      target="_blank"
+      rel="noopener"
+      data-contact="whatsapp-numeric"
+      class="underline hover:text-slate-700 dark:hover:text-slate-200"
+    >
+      {t.contacts.whatsappSecondary} ({CONTACTS.phoneFormatted})
+    </a>
+  </div>
+
+  <!-- QR Codes Section -->
+  {showQRCodes && (
+    <div class="pt-6 border-t border-slate-200 dark:border-slate-800">
+      <h3 class="text-center text-sm font-semibold text-slate-700 dark:text-slate-300 mb-6">
+        {t.contacts.qrTitle}
+      </h3>
+      <div class="flex flex-wrap items-center justify-center gap-8">
+        <div class="text-center bg-white dark:bg-slate-800 p-4 rounded-xl shadow border border-slate-100 dark:border-slate-700">
+          <img src="/qr-telegram.svg" alt={t.contacts.qrTelegram} class="w-32 h-32 mx-auto mb-2" width="128" height="128" loading="lazy" />
+          <span class="text-xs font-medium text-sky-600 dark:text-sky-400">{t.contacts.qrTelegram}</span>
+        </div>
+        <div class="text-center bg-white dark:bg-slate-800 p-4 rounded-xl shadow border border-slate-100 dark:border-slate-700">
+          <img src="/qr-whatsapp.svg" alt={t.contacts.qrWhatsapp} class="w-32 h-32 mx-auto mb-2" width="128" height="128" loading="lazy" />
+          <span class="text-xs font-medium text-emerald-600 dark:text-emerald-400">{t.contacts.qrWhatsapp}</span>
+        </div>
+      </div>
+    </div>
+  )}
+</div>
