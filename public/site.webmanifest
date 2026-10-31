@@ -1,0 +1,16 @@
+{
+  "name": "mr-moish-russian",
+  "name_short": "Mr. Moish",
+  "description": "Learn Russian through live conversation practice with Vasily Moish, a native Russian speaker.",
+  "start_url": "/en/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0284c7",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

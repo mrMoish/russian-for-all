@@ -1,0 +1,222 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ContactButtons from '../../components/ContactButtons.astro';
+import FactsAtAGlance from '../../components/FactsAtAGlance.astro';
+import CyrillicCheatSheet from '../../components/CyrillicCheatSheet.astro';
+import PhrasesBlock from '../../components/PhrasesBlock.astro';
+import FAQSection from '../../components/FAQSection.astro';
+import { getTranslation } from '../../i18n/utils';
+import { CONTACTS } from '../../config/contacts';
+import type { Locale } from '../../i18n/languages';
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: 'en' } },
+    { params: { lang: 'zh' } },
+    { params: { lang: 'es' } },
+    { params: { lang: 'tr' } },
+    { params: { lang: 'ar' } },
+    { params: { lang: 'ro' } },
+    { params: { lang: 'he' } },
+  ];
+}
+
+const { lang } = Astro.params;
+const locale = lang as Locale;
+const t = getTranslation(locale);
+---
+
+<BaseLayout
+  locale={locale}
+  title={t.seo.homeTitle}
+  description={t.seo.homeDesc}
+>
+  <!-- Hero Section -->
+  <section class="relative py-16 sm:py-24 bg-gradient-to-b from-brand-50 to-slate-50 dark:from-slate-900/80 dark:to-slate-900 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="text-center max-w-3xl mx-auto">
+
+        <!-- Decorative Greeting Motif -->
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-100 dark:bg-slate-800 text-brand-700 dark:text-brand-300 text-xs font-medium mb-6">
+          <span class="w-2 h-2 rounded-full bg-brand-500"></span>
+          <span>Привет / Hello / Hola / Merhaba / مرحبا / Salut / שלום / 你好</span>
+        </div>
+
+        <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight mb-6">
+          {t.hero.title}
+        </h1>
+
+        <p class="text-lg sm:text-xl text-slate-600 dark:text-slate-300 mb-8 leading-relaxed">
+          {t.hero.subtitle}
+        </p>
+
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-4">
+          <a
+            href={CONTACTS.telegram}
+            target="_blank"
+            rel="noopener"
+            data-contact="hero-primary"
+            class="w-full sm:w-auto px-8 py-4 text-base font-bold text-white bg-brand-600 hover:bg-brand-700 active:bg-brand-800 rounded-xl shadow-lg hover:shadow-xl transition transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-brand-500"
+          >
+            {t.hero.ctaPrimary}
+          </a>
+          <a
+            href={`/${locale}/why-speaking-works/`}
+            class="w-full sm:w-auto px-6 py-4 text-base font-semibold text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-xl transition shadow-sm"
+          >
+            {t.hero.ctaSecondary}
+          </a>
+        </div>
+
+        <p class="text-xs text-slate-500 dark:text-slate-400">
+          {t.hero.trialNote}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Big Idea / Core Value Prop -->
+  <section class="py-16 bg-white dark:bg-slate-800/50 border-y border-slate-200/80 dark:border-slate-800">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mb-4">
+        {t.bigIdea.title}
+      </h2>
+      <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
+        {t.bigIdea.text}
+      </p>
+    </div>
+  </section>
+
+  <!-- How It Works (3 Steps) -->
+  <section class="py-16 bg-slate-50 dark:bg-slate-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl sm:text-3xl font-bold text-center text-slate-900 dark:text-white mb-12">
+        {t.steps.title}
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-200/80 dark:border-slate-700">
+          <div class="w-10 h-10 rounded-xl bg-brand-100 dark:bg-slate-700 text-brand-700 dark:text-brand-400 font-bold flex items-center justify-center text-lg mb-4">1</div>
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">{t.steps.step1Title}</h3>
+          <p class="text-sm text-slate-600 dark:text-slate-300">{t.steps.step1Desc}</p>
+        </div>
+        <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-200/80 dark:border-slate-700">
+          <div class="w-10 h-10 rounded-xl bg-brand-100 dark:bg-slate-700 text-brand-700 dark:text-brand-400 font-bold flex items-center justify-center text-lg mb-4">2</div>
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">{t.steps.step2Title}</h3>
+          <p class="text-sm text-slate-600 dark:text-slate-300">{t.steps.step2Desc}</p>
+        </div>
+        <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-200/80 dark:border-slate-700">
+          <div class="w-10 h-10 rounded-xl bg-brand-100 dark:bg-slate-700 text-brand-700 dark:text-brand-400 font-bold flex items-center justify-center text-lg mb-4">3</div>
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">{t.steps.step3Title}</h3>
+          <p class="text-sm text-slate-600 dark:text-slate-300">{t.steps.step3Desc}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Who Is This For (Levels A0 - C1) -->
+  <section class="py-16 bg-white dark:bg-slate-800/30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl sm:text-3xl font-bold text-center text-slate-900 dark:text-white mb-12">
+        {t.audience.title}
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="p-6 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-800">
+          <h3 class="text-lg font-bold text-brand-700 dark:text-brand-400 mb-2">{t.audience.a0Title}</h3>
+          <p class="text-sm text-slate-600 dark:text-slate-300">{t.audience.a0Desc}</p>
+        </div>
+        <div class="p-6 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-800">
+          <h3 class="text-lg font-bold text-brand-700 dark:text-brand-400 mb-2">{t.audience.a1a2Title}</h3>
+          <p class="text-sm text-slate-600 dark:text-slate-300">{t.audience.a1a2Desc}</p>
+        </div>
+        <div class="p-6 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-800">
+          <h3 class="text-lg font-bold text-brand-700 dark:text-brand-400 mb-2">{t.audience.b1b2Title}</h3>
+          <p class="text-sm text-slate-600 dark:text-slate-300">{t.audience.b1b2Desc}</p>
+        </div>
+        <div class="p-6 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-800">
+          <h3 class="text-lg font-bold text-brand-700 dark:text-brand-400 mb-2">{t.audience.c1c2Title}</h3>
+          <p class="text-sm text-slate-600 dark:text-slate-300">{t.audience.c1c2Desc}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Benefits Section -->
+  <section class="py-16 bg-slate-50 dark:bg-slate-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl sm:text-3xl font-bold text-center text-slate-900 dark:text-white mb-12">
+        {t.benefits.title}
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="flex gap-4 p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200/80 dark:border-slate-700">
+          <div class="w-12 h-12 shrink-0 rounded-xl bg-brand-100 dark:bg-slate-700 flex items-center justify-center text-brand-600 dark:text-brand-400 font-bold text-xl">💬</div>
+          <div>
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-1">{t.benefits.b1Title}</h3>
+            <p class="text-sm text-slate-600 dark:text-slate-300">{t.benefits.b1Desc}</p>
+          </div>
+        </div>
+        <div class="flex gap-4 p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200/80 dark:border-slate-700">
+          <div class="w-12 h-12 shrink-0 rounded-xl bg-brand-100 dark:bg-slate-700 flex items-center justify-center text-brand-600 dark:text-brand-400 font-bold text-xl">🗣️</div>
+          <div>
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-1">{t.benefits.b2Title}</h3>
+            <p class="text-sm text-slate-600 dark:text-slate-300">{t.benefits.b2Desc}</p>
+          </div>
+        </div>
+        <div class="flex gap-4 p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200/80 dark:border-slate-700">
+          <div class="w-12 h-12 shrink-0 rounded-xl bg-brand-100 dark:bg-slate-700 flex items-center justify-center text-brand-600 dark:text-brand-400 font-bold text-xl">🌍</div>
+          <div>
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-1">{t.benefits.b3Title}</h3>
+            <p class="text-sm text-slate-600 dark:text-slate-300">{t.benefits.b3Desc}</p>
+          </div>
+        </div>
+        <div class="flex gap-4 p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200/80 dark:border-slate-700">
+          <div class="w-12 h-12 shrink-0 rounded-xl bg-brand-100 dark:bg-slate-700 flex items-center justify-center text-brand-600 dark:text-brand-400 font-bold text-xl">🤝</div>
+          <div>
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-1">{t.benefits.b4Title}</h3>
+            <p class="text-sm text-slate-600 dark:text-slate-300">{t.benefits.b4Desc}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Widgets: Phrases & Cyrillic Cheat Sheet -->
+  <section class="py-16 bg-white dark:bg-slate-800/30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      <PhrasesBlock locale={locale} />
+      <CyrillicCheatSheet locale={locale} />
+    </div>
+  </section>
+
+  <!-- Facts at a Glance (GEO Block) -->
+  <section class="py-16 bg-slate-50 dark:bg-slate-900">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <FactsAtAGlance locale={locale} />
+    </div>
+  </section>
+
+  <!-- Frequently Asked Questions (FAQ) Section -->
+  <section class="py-16 bg-white dark:bg-slate-800/30">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl sm:text-3xl font-bold text-center text-slate-900 dark:text-white mb-10">
+        {t.faq.title}
+      </h2>
+      <FAQSection locale={locale} />
+    </div>
+  </section>
+
+  <!-- Contact Section & Final CTA -->
+  <section class="py-16 bg-slate-50 dark:bg-slate-900">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-10">
+        <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mb-3">
+          {t.contacts.title}
+        </h2>
+        <p class="text-slate-600 dark:text-slate-300 text-base sm:text-lg">
+          {t.contacts.subtitle}
+        </p>
+      </div>
+
+      <ContactButtons locale={locale} showQRCodes={true} />
+    </div>
+  </section>
+</BaseLayout>

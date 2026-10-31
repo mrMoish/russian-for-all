@@ -1,0 +1,56 @@
+---
+import { type Locale } from '../i18n/languages';
+import { getTranslation } from '../i18n/utils';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getTranslation(locale);
+
+// Base location: Buenos Aires is UTC-3
+const BUENOS_AIRES_OFFSET = -3;
+
+const regions = [
+  { region: "Western Europe / UK (London, Madrid, Paris)", offset: 1, sampleSlot: "13:00 - 21:00 Local" },
+  { region: "Eastern Europe / Türkiye (Istanbul, Bucharest)", offset: 3, sampleSlot: "15:00 - 23:00 Local" },
+  { region: "Middle East (Dubai, Riyadh, Tel Aviv)", offset: 4, sampleSlot: "16:00 - 23:00 Local" },
+  { region: "US East Coast (New York, Miami)", offset: -5, sampleSlot: "08:00 - 16:00 Local" },
+  { region: "US West Coast (Los Angeles, Seattle)", offset: -8, sampleSlot: "07:00 - 13:00 Local" },
+  { region: "East Asia (Beijing, Shanghai, Singapore)", offset: 8, sampleSlot: "20:00 - 23:00 Local" },
+];
+---
+
+<div class="bg-white dark:bg-slate-800 rounded-2xl p-6 sm:p-8 shadow-md border border-slate-200 dark:border-slate-700">
+  <div class="max-w-2xl mb-6">
+    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">{t.timezone.title}</h3>
+    <p class="text-sm text-slate-600 dark:text-slate-300 mb-2">{t.timezone.subtitle}</p>
+    <p class="text-xs text-slate-500 dark:text-slate-400 italic">{t.timezone.note}</p>
+  </div>
+
+  <div class="overflow-x-auto">
+    <table class="w-full text-start text-sm text-slate-700 dark:text-slate-200">
+      <thead class="text-xs uppercase bg-slate-100 dark:bg-slate-900/80 text-slate-600 dark:text-slate-400">
+        <tr>
+          <th scope="col" class="px-4 py-3 text-start rounded-s-lg">{t.timezone.colRegion}</th>
+          <th scope="col" class="px-4 py-3 text-start">{t.timezone.colUtc}</th>
+          <th scope="col" class="px-4 py-3 text-start rounded-e-lg">{t.timezone.colLocalTime}</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-slate-200 dark:divide-slate-700">
+        {regions.map((r) => {
+          const diff = r.offset - BUENOS_AIRES_OFFSET;
+          const diffStr = diff > 0 ? `+${diff}h relative to BA` : `${diff}h relative to BA`;
+          return (
+            <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50 transition">
+              <td class="px-4 py-3 font-semibold text-slate-900 dark:text-white">{r.region}</td>
+              <td class="px-4 py-3 font-mono text-xs text-brand-600 dark:text-brand-400">UTC{r.offset >= 0 ? `+${r.offset}` : r.offset} ({diffStr})</td>
+              <td class="px-4 py-3 text-slate-600 dark:text-slate-300">{r.sampleSlot}</td>
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+  </div>
+</div>

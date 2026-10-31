@@ -1,0 +1,52 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getTranslation } from '../../i18n/utils';
+import type { Locale } from '../../i18n/languages';
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: 'en' } },
+    { params: { lang: 'zh' } },
+    { params: { lang: 'es' } },
+    { params: { lang: 'tr' } },
+    { params: { lang: 'ar' } },
+    { params: { lang: 'ro' } },
+    { params: { lang: 'he' } },
+  ];
+}
+
+const { lang } = Astro.params;
+const locale = lang as Locale;
+const t = getTranslation(locale);
+---
+
+<BaseLayout
+  locale={locale}
+  title={t.seo.privacyTitle}
+  description={t.seo.privacyDesc}
+>
+  <section class="py-16 sm:py-20 bg-white dark:bg-slate-900">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h1 class="text-3xl font-bold text-slate-900 dark:text-white mb-6">Privacy Policy</h1>
+
+      <div class="prose prose-slate dark:prose-invert max-w-none text-base text-slate-700 dark:text-slate-300 space-y-4">
+        <p><strong>Effective Date:</strong> January 1, 2024</p>
+        <p>
+          This website ("Mr. Moish") is dedicated to protecting your privacy.
+        </p>
+        <h2 class="text-xl font-bold text-slate-900 dark:text-white mt-6 mb-2">1. No Tracking Cookies</h2>
+        <p>
+          We do not use tracking cookies, advertising trackers, or invasive analytics tools on this website. Your browsing behavior is not profiled or sold to third parties.
+        </p>
+        <h2 class="text-xl font-bold text-slate-900 dark:text-white mt-6 mb-2">2. Direct Messaging Contacts</h2>
+        <p>
+          When you click contact links to reach Vasily Moish via Telegram, WhatsApp, or Instagram, you interact directly with those respective third-party platforms under their independent privacy policies.
+        </p>
+        <h2 class="text-xl font-bold text-slate-900 dark:text-white mt-6 mb-2">3. Contact Information</h2>
+        <p>
+          If you have any questions regarding privacy on this site, please reach out directly via Telegram (@mr_Moish) or WhatsApp (+54 11 2179-8231).
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

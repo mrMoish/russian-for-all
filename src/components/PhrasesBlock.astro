@@ -1,0 +1,46 @@
+---
+import { type Locale } from '../i18n/languages';
+import { getTranslation } from '../i18n/utils';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getTranslation(locale);
+
+const phrases = [
+  { ru: t.phrases.phrase1, trans: t.phrases.phrase1Trans, mean: t.phrases.phrase1Meaning },
+  { ru: t.phrases.phrase2, trans: t.phrases.phrase2Trans, mean: t.phrases.phrase2Meaning },
+  { ru: t.phrases.phrase3, trans: t.phrases.phrase3Trans, mean: t.phrases.phrase3Meaning },
+  { ru: t.phrases.phrase4, trans: t.phrases.phrase4Trans, mean: t.phrases.phrase4Meaning },
+  { ru: t.phrases.phrase5, trans: t.phrases.phrase5Trans, mean: t.phrases.phrase5Meaning },
+  { ru: t.phrases.phrase6, trans: t.phrases.phrase6Trans, mean: t.phrases.phrase6Meaning },
+  { ru: t.phrases.phrase7, trans: t.phrases.phrase7Trans, mean: t.phrases.phrase7Meaning },
+  { ru: t.phrases.phrase8, trans: t.phrases.phrase8Trans, mean: t.phrases.phrase8Meaning },
+  { ru: t.phrases.phrase9, trans: t.phrases.phrase9Trans, mean: t.phrases.phrase9Meaning },
+  { ru: t.phrases.phrase10, trans: t.phrases.phrase10Trans, mean: t.phrases.phrase10Meaning },
+];
+---
+
+<div class="bg-white dark:bg-slate-800 rounded-2xl p-6 sm:p-8 shadow-md border border-slate-200 dark:border-slate-700">
+  <div class="max-w-2xl mb-6">
+    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-1">{t.phrases.title}</h3>
+    <p class="text-sm text-slate-600 dark:text-slate-300">{t.phrases.subtitle}</p>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    {phrases.map((p, idx) => (
+      <div class="p-3.5 bg-slate-50 dark:bg-slate-900/60 rounded-xl border border-slate-200/80 dark:border-slate-700/80 flex items-start gap-3">
+        <span class="inline-flex items-center justify-center w-6 h-6 shrink-0 rounded-full bg-brand-100 dark:bg-slate-800 text-brand-700 dark:text-brand-400 text-xs font-bold">
+          {idx + 1}
+        </span>
+        <div>
+          <div class="text-base font-bold text-slate-900 dark:text-white font-serif">{p.ru}</div>
+          <div class="text-xs text-brand-600 dark:text-brand-400 font-mono mt-0.5">{p.trans}</div>
+          <div class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{p.mean}</div>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>

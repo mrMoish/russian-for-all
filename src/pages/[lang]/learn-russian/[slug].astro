@@ -1,0 +1,135 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ContactButtons from '../../../components/ContactButtons.astro';
+import { getTranslation } from '../../../i18n/utils';
+import { GUIDE_ARTICLES, type GuideArticle } from '../../../data/guides';
+import type { Locale } from '../../../i18n/languages';
+
+export function getStaticPaths() {
+  const LOCALES: Locale[] = ['en', 'zh', 'es', 'tr', 'ar', 'ro', 'he'];
+  const paths = [];
+
+  for (const locale of LOCALES) {
+    const articles = GUIDE_ARTICLES[locale] || GUIDE_ARTICLES.en;
+    for (const article of articles) {
+      paths.push({
+        params: { lang: locale, slug: article.slug },
+        props: { article, locale }
+      });
+    }
+  }
+
+  return paths;
+}
+
+interface Props {
+  article: GuideArticle;
+  locale: Locale;
+}
+
+const { article, locale } = Astro.props;
+const t = getTranslation(locale);
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": article.title,
+  "description": article.description,
+  "inLanguage": locale,
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": canonicalURL.toString()
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Vasily Moish",
+    "jobTitle": "Native Russian Conversation Partner",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Buenos Aires",
+      "addressCountry": "Argentina"
+    }
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Mr. Moish Russian Conversation Practice",
+    "url": "https://mrmoish.com"
+  },
+  "datePublished": article.datePublished,
+  "dateModified": article.dateModified
+};
+---
+
+<BaseLayout
+  locale={locale}
+  title={`${article.title} | Mr. Moish`}
+  description={article.description}
+  articleMeta={{
+    publishedTime: article.datePublished,
+    modifiedTime: article.dateModified,
+    author: "Vasily Moish"
+  }}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+  <article class="py-16 sm:py-20 bg-white dark:bg-slate-900">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <!-- Breadcrumb Nav -->
+      <nav class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 mb-8" aria-label="Breadcrumb">
+        <a href={`/${locale}/`} class="hover:underline">{t.nav.home}</a>
+        <span>&rsaquo;</span>
+        <a href={`/${locale}/learn-russian/`} class="hover:underline">{t.nav.guideHub}</a>
+        <span>&rsaquo;</span>
+        <span class="text-slate-800 dark:text-slate-200 font-medium truncate max-w-xs">{article.title}</span>
+      </nav>
+
+      <header class="mb-10">
+        <div class="flex items-center gap-3 text-xs text-slate-500 dark:text-slate-400 mb-4">
+          <span>By <strong>Vasily Moish</strong></span>
+          <span>•</span>
+          <span>Last updated: {article.dateModified}</span>
+        </div>
+
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white leading-tight mb-6">
+          {article.title}
+        </h1>
+
+        <!-- Answer-First Block -->
+        <div class="p-6 bg-brand-50/80 dark:bg-slate-800/80 rounded-2xl border border-brand-100 dark:border-slate-700">
+          <p class="text-sm sm:text-base font-semibold text-brand-900 dark:text-brand-300 m-0 leading-relaxed">
+            💡 <strong>Direct Answer:</strong> {article.answerFirst}
+          </p>
+        </div>
+      </header>
+
+      <!-- Article Main Body -->
+      <div class="prose prose-slate dark:prose-invert max-w-none text-base sm:text-lg text-slate-700 dark:text-slate-300 leading-relaxed space-y-6">
+        <Fragment set:html={article.content.replace(/\n\n/g, '</p><p>').replace(/## (.*)/g, '<h2 class="text-2xl font-bold text-slate-900 dark:text-white mt-8 mb-4">$1</h2>').replace(/### (.*)/g, '<h3 class="text-xl font-bold text-slate-900 dark:text-white mt-6 mb-3">$1</h3>')} />
+      </div>
+
+      <!-- Author Attribution Box -->
+      <div class="mt-12 p-6 bg-slate-50 dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 flex flex-col sm:flex-row items-center gap-4">
+        <div class="w-16 h-16 rounded-full bg-brand-600 text-white font-bold text-xl flex items-center justify-center shrink-0">
+          VM
+        </div>
+        <div>
+          <h2 class="text-base font-bold text-slate-900 dark:text-white">Written by Vasily Moish</h2>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-1">
+            Native Russian speaker based in Buenos Aires, Argentina. Freelance software developer offering online 1-on-1 Russian conversation practice to students worldwide.
+          </p>
+        </div>
+      </div>
+
+      <!-- Related articles & CTA -->
+      <div class="mt-16 pt-12 border-t border-slate-200 dark:border-slate-800">
+        <h2 class="text-center text-xl font-bold text-slate-900 dark:text-white mb-6">
+          Ready to put your Russian into practice?
+        </h2>
+        <ContactButtons locale={locale} showQRCodes={false} />
+      </div>
+
+    </div>
+  </article>
+</BaseLayout>

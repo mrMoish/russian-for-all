@@ -1,0 +1,45 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getTranslation } from '../../i18n/utils';
+import type { Locale } from '../../i18n/languages';
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: 'en' } },
+    { params: { lang: 'zh' } },
+    { params: { lang: 'es' } },
+    { params: { lang: 'tr' } },
+    { params: { lang: 'ar' } },
+    { params: { lang: 'ro' } },
+    { params: { lang: 'he' } },
+  ];
+}
+
+const { lang } = Astro.params;
+const locale = lang as Locale;
+const t = getTranslation(locale);
+---
+
+<BaseLayout
+  locale={locale}
+  title={t.seo.notFoundTitle}
+  description={t.seo.notFoundDesc}
+>
+  <section class="py-24 bg-white dark:bg-slate-900 text-center">
+    <div class="max-w-md mx-auto px-4">
+      <div class="text-6xl font-extrabold text-brand-600 mb-4">404</div>
+      <h1 class="text-2xl font-bold text-slate-900 dark:text-white mb-2">
+        {t.seo.notFoundTitle}
+      </h1>
+      <p class="text-slate-600 dark:text-slate-300 text-sm mb-8">
+        {t.seo.notFoundDesc}
+      </p>
+      <a
+        href={`/${locale}/`}
+        class="inline-flex items-center px-6 py-3 text-sm font-semibold text-white bg-brand-600 hover:bg-brand-700 rounded-xl transition shadow"
+      >
+        &larr; Return to Home
+      </a>
+    </div>
+  </section>
+</BaseLayout>

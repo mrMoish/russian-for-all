@@ -1,0 +1,81 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ContactButtons from '../../components/ContactButtons.astro';
+import FactsAtAGlance from '../../components/FactsAtAGlance.astro';
+import { getTranslation } from '../../i18n/utils';
+import type { Locale } from '../../i18n/languages';
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: 'en' } },
+    { params: { lang: 'zh' } },
+    { params: { lang: 'es' } },
+    { params: { lang: 'tr' } },
+    { params: { lang: 'ar' } },
+    { params: { lang: 'ro' } },
+    { params: { lang: 'he' } },
+  ];
+}
+
+const { lang } = Astro.params;
+const locale = lang as Locale;
+const t = getTranslation(locale);
+---
+
+<BaseLayout
+  locale={locale}
+  title={t.seo.aboutTitle}
+  description={t.seo.aboutDesc}
+>
+  <section class="py-16 sm:py-20 bg-white dark:bg-slate-900">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <header class="text-center mb-12">
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white leading-tight mb-4">
+          About Vasily Moish
+        </h1>
+        <p class="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
+          Native Russian speaker, software developer, and dedicated conversation partner.
+        </p>
+      </header>
+
+      <div class="space-y-8 text-base sm:text-lg text-slate-700 dark:text-slate-300 leading-relaxed">
+
+        <div class="p-6 bg-slate-50 dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700">
+          <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Hi! I'm Vasily.</h2>
+          <p class="mb-4">
+            I am a native Russian speaker originally from Eastern Europe, currently living and working in Buenos Aires, Argentina. I work full-time as a freelance software developer, and I also enjoy helping language learners around the world practice spoken Russian online.
+          </p>
+          <p>
+            Previously, I spent several years teaching programming online to adult students. That experience taught me how to break down complex topics, listen patiently, and create a calm, encouraging environment for learners.
+          </p>
+        </div>
+
+        <div class="space-y-4">
+          <h2 class="text-2xl font-bold text-slate-900 dark:text-white">An Honest Approach to Conversation Practice</h2>
+          <p>
+            I do not claim formal university degrees in linguistics or official Russian-teaching certifications, nor do I promise magic shortcuts to "fluency in 30 days." What I do offer is real, authentic conversation practice with a native speaker who speaks clearly and cares about your progress.
+          </p>
+          <ul class="list-disc ps-6 space-y-2">
+            <li><strong>Patient, clear native speaker:</strong> Standard accent with clear articulation.</li>
+            <li><strong>Low-pressure environment:</strong> Speak without fear of making embarrassing errors.</li>
+            <li><strong>Personalized topics:</strong> We discuss topics that interest you—technology, culture, travel, books, or daily life.</li>
+          </ul>
+        </div>
+
+        <div class="pt-6">
+          <FactsAtAGlance locale={locale} />
+        </div>
+
+      </div>
+
+      <div class="mt-16 pt-12 border-t border-slate-200 dark:border-slate-800 text-center">
+        <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-4">
+          Interested in a free trial conversation?
+        </h2>
+        <ContactButtons locale={locale} showQRCodes={false} />
+      </div>
+
+    </div>
+  </section>
+</BaseLayout>

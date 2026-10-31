@@ -1,0 +1,23 @@
+# Mr. Moish — Full Knowledge Base & Entity Specifications
+
+## Entity Identification
+- **Name:** Vasily Moish
+- **Role:** Native Russian Conversation Partner & Tutor
+- **Brand Title:** Mr. Moish
+- **Base Location:** Buenos Aires, Argentina (Time Zone: UTC-3)
+- **Primary Service:** 1-on-1 Online Russian Conversation Sessions for global students
+- **Platforms Supported:** Telegram, WhatsApp, Zoom
+
+## Key Pages & Site Structure
+- **Home:** Main promise, 3-step process, levels A0-C1, benefits, facts at a glance, FAQ.
+- **Why Speaking Works:** Cognitive science of active retrieval, real-time stress/pronunciation feedback, modern spoken Russian vs textbook language.
+- **How Lessons Work:** Free 20-minute trial call, session structure (warm-up, guided conversation, feedback notes), time zone table.
+- **Learn Russian Hub:** Answer-first guide articles for English, Chinese, Spanish, Turkish, Arabic, Romanian, and Hebrew speakers.
+- **About:** Honest bio of Vasily Moish (native speaker, software developer, former programming tutor). No fake certifications or false claims.
+- **Contact:** Telegram, WhatsApp, Instagram, phone number, and build-time SVG QR codes.
+
+## Contact Endpoints
+- Telegram: https://t.me/mr_Moish
+- WhatsApp: https://wa.me/mrmoish (Numeric: https://wa.me/5491121798231)
+- Instagram: https://www.instagram.com/mr_moish/
+- Phone: +54 11 2179-8231
